@@ -42,7 +42,7 @@ const allowedOrigins = [
   "http://localhost:3000", // React tradicional
   "http://localhost:5173", // Vite
   "http://127.0.0.1:5173", // Alternativa local
-  "https://dodotaskmanager.netlify.app/"
+  "https://dodotaskmanager.netlify.app"
   // Agrega aquí otros dominios en producción
 ];
 
