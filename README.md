@@ -1,5 +1,4 @@
-
-# TODO-APP-API
+# DoDo! - Backend
 
 Este proyecto implementa una API para gestionar tareas (To-Do), con funcionalidades de autenticación y seguridad utilizando **Express**, **JWT** y **MongoDB**.
 
@@ -10,7 +9,7 @@ Este proyecto implementa una API para gestionar tareas (To-Do), con funcionalida
 
 ## Tabla de contenidos
 
-- [TODO-APP-API](#todo-app-api)
+- [DoDo! - Backend](#dodo---backend)
   - [Tabla de contenidos](#tabla-de-contenidos)
   - [Descripción](#descripción)
   - [Características](#características)
@@ -70,8 +69,8 @@ Sigue estos pasos para configurar el proyecto en tu entorno local:
 
 1. **Clona este repositorio**:
    ```bash
-   git clone https://github.com/TuUsuario/ToDoAppAPI
-   cd ToDoAppAPI
+   git clone https://github.com/AlejandroRomero17/DoDo-API-Modern-Task-Management-Backend
+   cd DoDo-API-Modern-Task-Management-Backend
    ```
 
 2. **Instala las dependencias**:
@@ -172,6 +171,6 @@ Este proyecto está bajo la licencia **MIT**. Consulta el archivo [LICENSE](LICE
 
 Si tienes preguntas o sugerencias, no dudes en contactarme:
 
-- **Nombre**: Gonza
+- **Nombre**: Alejandro Gonzalez Romero
 - **Correo electrónico**: gonzalez.romero.alejandroo@gmail.com
-- **GitHub**: (https://github.com/TuUsuario)
+- **GitHub**: [https://github.com/AlejandroRomero17](https://github.com/AlejandroRomero17)
