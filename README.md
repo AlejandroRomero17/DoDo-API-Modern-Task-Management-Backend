@@ -1,5 +1,8 @@
 # DoDo! - Backend
 
+**URL de la API en Producción:**
+[https://taskflow-api-modern-task-management.onrender.com](https://taskflow-api-modern-task-management.onrender.com)
+
 Este proyecto implementa una API para gestionar tareas (To-Do), con funcionalidades de autenticación y seguridad utilizando **Express**, **JWT** y **MongoDB**.
 
 ![NodeJS](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
@@ -30,56 +33,61 @@ Este proyecto implementa una API para gestionar tareas (To-Do), con funcionalida
 
 ## Descripción
 
-Este proyecto permite gestionar tareas y usuarios, con las siguientes funcionalidades:
-- **Usuarios**: Registro e inicio de sesión con autenticación JWT.
-- **Tareas**: Crear, leer, actualizar y eliminar tareas.
+DoDo! es una API diseñada para gestionar tareas y usuarios, ofreciendo:
 
-Utiliza las siguientes tecnologías:
-- **Express**: Framework para construir APIs RESTful.
-- **MongoDB**: Base de datos NoSQL para almacenar las tareas y usuarios.
-- **JWT**: Para la autenticación de usuarios.
-- **Winston**: Para la gestión de logs.
+- **Usuarios:** Registro e inicio de sesión mediante autenticación basada en JWT.
+- **Tareas:** Crear, leer, actualizar y eliminar tareas (CRUD).
+
+Utiliza tecnologías modernas como:
+
+- **Express:** Framework para la creación de APIs RESTful.
+- **MongoDB:** Base de datos NoSQL para almacenar datos de usuarios y tareas.
+- **JWT:** Para la autenticación segura de los usuarios.
+- **Winston:** Para la gestión y registro de logs.
 
 ---
 
 ## Características
 
-- API RESTful con autenticación basada en **JWT**.
-- Documentación interactiva a través de **Swagger** (implementada manualmente).
-- Gestión de usuarios con **registro** y **inicio de sesión**.
-- CRUD para las tareas (To-Do).
-- Seguridad con **CORS** y **rate limiting**.
+- **API RESTful** con autenticación y autorización mediante JWT.
+- **Documentación interactiva** a través de Swagger, facilitando el desarrollo y pruebas.
+- **Gestión completa de usuarios**, permitiendo el registro e inicio de sesión.
+- **Operaciones CRUD** para gestionar tareas (To-Do).
+- **Seguridad reforzada** con CORS, rate limiting y validaciones de entrada.
 
 ---
 
 ## Requisitos
 
-Antes de ejecutar el proyecto, asegúrate de tener instalado lo siguiente:
+Antes de ejecutar el proyecto, asegúrate de contar con lo siguiente:
 
-1. **Node.js** 18+
-2. **MongoDB** en ejecución local o un servicio de MongoDB en la nube.
-3. **Dependencias del proyecto** (ver `package.json`).
-4. **Variables de entorno** (ver `.env`).
+1. **Node.js** 18 o superior.
+2. **MongoDB** en ejecución local o un servicio en la nube.
+3. Las dependencias del proyecto (consultar `package.json`).
+4. Variables de entorno configuradas (ver sección de instalación).
 
 ---
 
 ## Instalación
 
-Sigue estos pasos para configurar el proyecto en tu entorno local:
+Para configurar el proyecto en tu entorno local, sigue estos pasos:
 
-1. **Clona este repositorio**:
+1. **Clonar el repositorio:**
+
    ```bash
    git clone https://github.com/AlejandroRomero17/DoDo-API-Modern-Task-Management-Backend
    cd DoDo-API-Modern-Task-Management-Backend
    ```
 
-2. **Instala las dependencias**:
+2. **Instalar las dependencias:**
+
    ```bash
    npm install
    ```
 
-3. **Configura las variables de entorno**:
-   Crea un archivo `.env` en la raíz del proyecto y agrega los siguientes valores:
+3. **Configurar las variables de entorno:**
+
+   Crea un archivo `.env` en la raíz del proyecto y añade lo siguiente:
    ```env
    NODE_ENV=development
    PORT=5000
@@ -88,12 +96,13 @@ Sigue estos pasos para configurar el proyecto en tu entorno local:
    JWT_EXPIRES_IN=1d
    ```
 
-4. **Ejecuta el servidor**:
+4. **Ejecutar el servidor:**
+
    ```bash
    npm run dev
    ```
 
-La API estará disponible en `http://localhost:5000`.
+La API estará disponible en `http://localhost:5000` (para entorno local).
 
 ---
 
@@ -101,32 +110,34 @@ La API estará disponible en `http://localhost:5000`.
 
 ### Documentación interactiva
 
-- **Swagger UI**: Accede a `/api-docs` para explorar y probar los endpoints.
+Accede a la documentación en tiempo real a través de Swagger UI:
+
+- **Producción:** [https://taskflow-api-modern-task-management.onrender.com/api-docs](https://taskflow-api-modern-task-management.onrender.com/api-docs)
+- **Local:** [http://localhost:5000/api-docs](http://localhost:5000/api-docs)
+
+Desde Swagger podrás explorar, testear y entender cada endpoint de la API.
+Si el endpoint requiere autenticación, utiliza el botón **Authorize** e introduce tu token en el formato `Bearer <tu-token>`.
 
 ### Ejemplo de JSON para crear un usuario
 
 ```json
 {
-    "userName": "juanperez123",
-    "firstName": "Juan",
-    "lastName": "Pérez",
-    "password": "contraseña_segura"
+  "userName": "juanperez123",
+  "firstName": "Juan",
+  "lastName": "Pérez",
+  "password": "contraseña_segura"
 }
 ```
-
-Envía este JSON a la ruta `POST /api/auth/register` para crear un nuevo usuario.
 
 ### Ejemplo de JSON para crear una tarea
 
 ```json
 {
-    "title": "Comprar pan",
-    "description": "Comprar pan en la tienda del barrio",
-    "completed": false
+  "title": "Comprar pan",
+  "description": "Comprar pan en la tienda del barrio",
+  "completed": false
 }
 ```
-
-Envía este JSON a la ruta `POST /api/todo` para crear una nueva tarea.
 
 ---
 
@@ -134,22 +145,19 @@ Envía este JSON a la ruta `POST /api/todo` para crear una nueva tarea.
 
 ### Usuarios
 
-- `POST /api/auth/register`: Crea un nuevo usuario.
-- `POST /api/auth/login`: Inicia sesión y obtiene un token JWT.
+- `POST /api/auth/register`: Registra un nuevo usuario.
+- `POST /api/auth/login`: Inicia sesión y devuelve un token JWT.
 
 ### Tareas (To-Do)
 
-- `GET /api/todo`: Obtiene todas las tareas.
-- `POST /api/todo`: Crea una nueva tarea.
-- `GET /api/todo/:id`: Obtiene una tarea por ID.
-- `PUT /api/todo/:id`: Actualiza una tarea existente.
-- `DELETE /api/todo/:id`: Elimina una tarea.
+- `POST /api/todo/create-to-do`: Crea una nueva tarea.
+- `GET /api/todo/get-all-to-do/:userId`: Obtiene todas las tareas de un usuario.
+- `PATCH /api/todo/update-to-do/:id`: Actualiza una tarea por ID.
+- `DELETE /api/todo/delete-to-do/:id`: Elimina una tarea por ID.
 
 ---
 
 ## Contribuciones
-
-Si deseas contribuir al proyecto, sigue estos pasos:
 
 1. Haz un fork del repositorio.
 2. Crea una nueva rama (`git checkout -b feature/nueva-funcionalidad`).
@@ -157,20 +165,16 @@ Si deseas contribuir al proyecto, sigue estos pasos:
 4. Sube tus cambios (`git push origin feature/nueva-funcionalidad`).
 5. Abre un pull request.
 
-Toda ayuda es bienvenida, ya sea para corregir errores, mejorar la documentación o agregar nuevas características.
-
 ---
 
 ## Licencia
 
-Este proyecto está bajo la licencia **MIT**. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está bajo la licencia **MIT**.
 
 ---
 
 ## Contacto
 
-Si tienes preguntas o sugerencias, no dudes en contactarme:
-
-- **Nombre**: Alejandro Gonzalez Romero
-- **Correo electrónico**: gonzalez.romero.alejandroo@gmail.com
-- **GitHub**: [https://github.com/AlejandroRomero17](https://github.com/AlejandroRomero17)
+- **Nombre:** Alejandro Gonzalez Romero
+- **Correo electrónico:** gonzalez.romero.alejandroo@gmail.com
+- **GitHub:** [https://github.com/AlejandroRomero17](https://github.com/AlejandroRomero17)
