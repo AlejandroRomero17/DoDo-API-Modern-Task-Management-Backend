@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import User from "../model/user.model";
-import jwt from "jsonwebtoken";
+import jwt, { SignOptions } from "jsonwebtoken";
 import dotenv from "dotenv";
 import logger from "../config/logger";
 
-
 dotenv.config();
-const secretKey = process.env.JWT_SECRET || ""; // Asegúrate de que JWT_SECRET esté cargado correctamente
+
+const secretKey = process.env.JWT_SECRET as string;
+const jwtExpiresIn: string = process.env.JWT_EXPIRES_IN ?? "7d";
 
 // Mensajes de respuesta
 const MESSAGES = {
@@ -40,11 +41,11 @@ const registerUser = async (req: Request, res: Response): Promise<void> => {
     res.status(201).json({ message: MESSAGES.REGISTRATION_SUCCESS });
     console.log("Usuario registrado:", user);
   } catch (error) {
-  logger.error('Error registering user', {
-    error: error instanceof Error ? error.message : 'Unknown error',
-    userName: req.body.userName
-  });
-  res.status(500).json({ message: MESSAGES.SERVER_ERROR });
+    logger.error("Error registering user", {
+      error: error instanceof Error ? error.message : "Unknown error",
+      userName: req.body.userName,
+    });
+    res.status(500).json({ message: MESSAGES.SERVER_ERROR });
   }
 };
 
@@ -69,9 +70,11 @@ const loginUser = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const token = jwt.sign({ userId: user._id }, secretKey, {
-      expiresIn: "1h",
-    });
+    const signOptions: SignOptions = {
+      expiresIn: jwtExpiresIn as any, // Se fuerza a que sea "any" para evitar el error de tipos
+    };
+
+    const token = jwt.sign({ userId: user._id }, secretKey, signOptions);
 
     res.json({
       userId: user._id,
@@ -81,11 +84,11 @@ const loginUser = async (req: Request, res: Response): Promise<void> => {
       token,
     });
   } catch (error) {
-  logger.error('Error en login', {
-    error: error instanceof Error ? error.message : 'Unknown error',
-    userName: req.body.userName
-  });
-  res.status(500).json({ message: MESSAGES.SERVER_ERROR });
+    logger.error("Error en login", {
+      error: error instanceof Error ? error.message : "Unknown error",
+      userName: req.body.userName,
+    });
+    res.status(500).json({ message: MESSAGES.SERVER_ERROR });
   }
 };
 
