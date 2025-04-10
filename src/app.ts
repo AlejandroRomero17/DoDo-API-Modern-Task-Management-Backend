@@ -59,16 +59,21 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://127.0.0.1:5173",
   "https://dodotaskmanager.netlify.app",
+  "http://localhost:5000",
+  "https://taskflow-api-modern-task-management.onrender.com",
 ];
+
 
 const corsOptions: cors.CorsOptions = {
   origin: (origin, callback) => {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+    if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.warn("❌ Rechazado por CORS:", origin);
       callback(new Error("Not allowed by CORS"));
     }
   },
+
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
@@ -116,7 +121,6 @@ app.get("/", (req: Request, res: Response) => {
     },
   });
 });
-
 
 // Integración de Swagger UI
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));

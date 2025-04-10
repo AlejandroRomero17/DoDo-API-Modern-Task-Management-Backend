@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import ToDo from "../model/todolist.model";
 import logger from "../config/logger";
 
-
 // Definir mensajes de respuesta centralizados
 const MESSAGES = {
   TASK_CREATED: "Created New Task!",
@@ -31,10 +30,11 @@ export const createToDo = async (
       data: result,
     });
   } catch (err) {
-    logger.error('Error en operación de tarea', {
-  operation: 'createToDo', // cambiar según la función
-  error: err instanceof Error ? err.message : 'Unknown error',
-  userId: req.user?.userId})
+    logger.error("Error en operación de tarea", {
+      operation: "createToDo",
+      error: err instanceof Error ? err.message : "Unknown error",
+      userId: req.user?.userId,
+    });
     res.status(500).json({
       message: MESSAGES.SERVER_ERROR,
       error: err instanceof Error ? err.message : "Unknown error",
@@ -47,7 +47,7 @@ export const getAllToDo = async (
   res: Response
 ): Promise<void> => {
   try {
-    const userId = req.params.userId; // Accede correctamente al parámetro
+    const userId = req.user?.userId;
     const result = await ToDo.find({ createdBy: userId })
       .sort({ createdAt: -1 })
       .lean();
@@ -58,7 +58,7 @@ export const getAllToDo = async (
     });
   } catch (err) {
     logger.error("Error en operación de tarea", {
-      operation: "createToDo", // cambiar según la función
+      operation: "getAllToDo",
       error: err instanceof Error ? err.message : "Unknown error",
       userId: req.user?.userId,
     });
@@ -80,30 +80,26 @@ export const updateToDo = async (
     const updatedTodo = await ToDo.findByIdAndUpdate(
       taskId,
       { $set: updateData },
-      { new: true, runValidators: true }
+      { new: true, runValidators: true } // 'new: true' asegura que regresa el documento actualizado
     );
 
     if (!updatedTodo) {
-      res.status(404).json({ message: MESSAGES.TASK_NOT_FOUND });
+      res.status(404).json({ message: "Task not found" });
       return;
     }
 
     res.json({
-      message: MESSAGES.TASK_UPDATED,
+      message: "Tarea actualizada correctamente",
       data: updatedTodo,
     });
   } catch (err) {
-    logger.error("Error en operación de tarea", {
-      operation: "createToDo", // cambiar según la función
-      error: err instanceof Error ? err.message : "Unknown error",
-      userId: req.user?.userId,
-    });
     res.status(500).json({
-      message: MESSAGES.SERVER_ERROR,
+      message: "Error al actualizar la tarea",
       error: err instanceof Error ? err.message : "Unknown error",
     });
   }
 };
+
 
 export const deleteToDo = async (
   req: Request,
@@ -124,7 +120,7 @@ export const deleteToDo = async (
     });
   } catch (err) {
     logger.error("Error en operación de tarea", {
-      operation: "createToDo", // cambiar según la función
+      operation: "deleteToDo",
       error: err instanceof Error ? err.message : "Unknown error",
       userId: req.user?.userId,
     });

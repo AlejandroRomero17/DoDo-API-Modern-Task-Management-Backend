@@ -49,26 +49,19 @@ router.post("/create-to-do", rateLimiter, authenticateToken, createToDo);
 
 /**
  * @swagger
- * /api/todo/get-all-to-do/{userId}:
+ * /api/todo/get-all-to-do:
  *   get:
- *     summary: Obtiene todas las tareas de un usuario
+ *     summary: Obtiene todas las tareas del usuario autenticado
  *     tags: [Tareas]
  *     security:
  *       - bearerAuth: []
- *     parameters:
- *       - in: path
- *         name: userId
- *         schema:
- *           type: string
- *         required: true
- *         description: ID del usuario
  *     responses:
  *       200:
  *         description: Lista de tareas devuelta exitosamente.
  *       500:
  *         description: Error interno del servidor.
  */
-router.get("/get-all-to-do/:userId", authenticateToken, getAllToDo);
+router.get("/get-all-to-do", authenticateToken, getAllToDo);
 
 /**
  * @swagger
